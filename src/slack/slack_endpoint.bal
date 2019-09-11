@@ -19,7 +19,7 @@ import ballerina/io;
 
 # Object for Slack endpoint.
 #
-# + webhookUrl - Webhook URLs for Your Workspace
+# + slackClient - Slack Client for the passed Webhook Url
 public type Client client object {
 
     public http:Client slackClient;
