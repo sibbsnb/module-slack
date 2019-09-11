@@ -256,3 +256,15 @@ public type TwilioConfiguration record {
     string xAuthyKey;
     http:ClientSecureSocket secureSocket?;
 };
+
+
+# Slack Configuration.
+#
+# + token1 - Unique identifier of the account
+# + token2 - The authentication token of the account
+# + token3 - The authentication token for the Authy API
+public type SlackConfiguration record {
+    string token1;
+    string token2;
+    string token3;
+};
