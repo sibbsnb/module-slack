@@ -1,0 +1,33 @@
+[2019-09-11 13:46:41,796] SEVERE {b7a.log.crash} - null 
+java.lang.NullPointerException
+	at org.wso2.ballerinalang.programfile.PackageFileWriter.writePackage(PackageFileWriter.java:51)
+	at org.ballerinalang.packerina.writer.BirFileWriter.writeBIRToPath(BirFileWriter.java:100)
+	at org.ballerinalang.packerina.task.CreateBirTask.writeImportBir(CreateBirTask.java:73)
+	at org.ballerinalang.packerina.task.CreateBirTask.execute(CreateBirTask.java:53)
+	at org.ballerinalang.packerina.TaskExecutor.executeTasks(TaskExecutor.java:38)
+	at org.ballerinalang.packerina.cmd.BuildCommand.execute(BuildCommand.java:395)
+	at java.util.Optional.ifPresent(Optional.java:159)
+	at org.ballerinalang.tool.Main.main(Main.java:59)
+ 
+[2019-09-11 13:46:47,668] SEVERE {b7a.log.crash} - null 
+java.lang.NullPointerException
+	at org.wso2.ballerinalang.programfile.PackageFileWriter.writePackage(PackageFileWriter.java:51)
+	at org.ballerinalang.packerina.writer.BirFileWriter.writeBIRToPath(BirFileWriter.java:100)
+	at org.ballerinalang.packerina.task.CreateBirTask.writeImportBir(CreateBirTask.java:73)
+	at org.ballerinalang.packerina.task.CreateBirTask.execute(CreateBirTask.java:53)
+	at org.ballerinalang.packerina.TaskExecutor.executeTasks(TaskExecutor.java:38)
+	at org.ballerinalang.packerina.cmd.BuildCommand.execute(BuildCommand.java:395)
+	at java.util.Optional.ifPresent(Optional.java:159)
+	at org.ballerinalang.tool.Main.main(Main.java:59)
+ 
+[2019-09-11 13:46:58,537] SEVERE {b7a.log.crash} - null 
+java.lang.NullPointerException
+	at org.wso2.ballerinalang.programfile.PackageFileWriter.writePackage(PackageFileWriter.java:51)
+	at org.ballerinalang.packerina.writer.BirFileWriter.writeBIRToPath(BirFileWriter.java:100)
+	at org.ballerinalang.packerina.task.CreateBirTask.writeImportBir(CreateBirTask.java:73)
+	at org.ballerinalang.packerina.task.CreateBirTask.execute(CreateBirTask.java:53)
+	at org.ballerinalang.packerina.TaskExecutor.executeTasks(TaskExecutor.java:38)
+	at org.ballerinalang.packerina.cmd.BuildCommand.execute(BuildCommand.java:395)
+	at java.util.Optional.ifPresent(Optional.java:159)
+	at org.ballerinalang.tool.Main.main(Main.java:59)
+ 

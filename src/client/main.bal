@@ -13,8 +13,8 @@ public function main() {
         };
 
         slack:SlackConfiguration slackConfig = {
-            webhookUrl: "https://hooks.slack.com/services/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"
-        }
+            webhookUrl: "https://hooks.slack.com/services/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"
+        };
 
         slack:Client twilioClient = new(twilioConfig,slackConfig);
 
@@ -27,6 +27,7 @@ public function main() {
             io:println("Error: ", details);
         }
 
+        var response = twilioClient->sendWebhookMessage("hello");
 
     io:println("Hello World!");
 }

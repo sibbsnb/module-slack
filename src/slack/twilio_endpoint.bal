@@ -17,6 +17,7 @@
 import ballerina/auth;
 import ballerina/http;
 import ballerina/mime;
+import ballerina/io;
 
 # Object for Twilio endpoint.
 #
@@ -30,6 +31,7 @@ public type Client client object {
     public string xAuthyKey;
     public http:Client basicClient;
     public http:Client authyClient;
+    public http:Client slackClient;
 
     public function __init(TwilioConfiguration twilioConfig, SlackConfiguration slackConfig) {
         http:BasicAuthHandler basicAuthHandler = self.createAuthHandler(twilioConfig);
@@ -68,7 +70,8 @@ public type Client client object {
         self.xAuthyKey = twilioConfig.xAuthyKey;
 
         // slack
-        self.webhookUrl = slackConfig.webhookUrl
+        //self.webhookUrl = slackConfig.webhookUrl;
+        self.slackClient = new(slackConfig.webhookUrl);
     }
 
     # Initialize Twilio endpoint.
@@ -118,23 +121,28 @@ public type Client client object {
 
     // Slack
 
-    public remote function sendWebhookMessage(string message) returns @tainted SlackResponse | error {
+    public remote function sendWebhookMessage(string message) returns @tainted string | error {
         http:Request req = new;
 
-        string requestBody = ""
-        //string requestBody = "{
-        //  "text": "Hello, world."
-        //}";
-        requestBody = check createUrlEncodedRequestBody(requestBody, FROM, fromNo);
-        requestBody = check createUrlEncodedRequestBody(requestBody, TO, toNo);
-        requestBody = check createUrlEncodedRequestBody(requestBody, BODY, message);
-        req.setTextPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
+        string requestBody = "";
+        json jsPayload = [{text : "HEllo"}];
+        var response = self.slackClient->post("/",jsPayload);
+        if (response is http:Response) {
+            string contentType = response.getHeader("Content-Type");
+            io:println("Content-Type: " + contentType);
 
-        string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + SMS_SEND;
-        var response = self.basicClient->post(requestPath, req);
+            var res = response.getTextPayload();
+            io:println("Response " + res.toString());
 
-        json jsonResponse = check parseResponseToJson(response);
-        return mapJsonToSmsResponse(jsonResponse);
+            int statusCode = response.statusCode;
+            io:println("Status code: " + statusCode.toString());
+            return res;
+        } else {
+             io:println("Error when calling the backend: " , response.reason());
+             return "error";
+        }
+
+        //json jsonResponse = check parseResponseToJson(response);
     }
     // Slack
 
