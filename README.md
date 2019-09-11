@@ -1,56 +1,61 @@
-[![Build Status](https://travis-ci.org/wso2-ballerina/module-twilio.svg?branch=master)](https://travis-ci.org/wso2-ballerina/module-twilio)
-
-# Twilio Connector
-
-The Twilio connector allows you to send SMS, voice, and OTP messages through the Twilio REST API. You can also send
-user secrets via SMS or voice message, verify OTP, and add and delete users. It handles basic authentication.
-
+[![Build Status])
+​
+# Slack Connector
+​
+The Slack connector allows you to send slack message through the Slack REST API.
+​
 ## Compatibility
-
-| Ballerina Language Version  | Twilio Basic API Version | Twilio Authy API Version |
-|:---------------------------:|:------------------------:|:------------------------:|
-| 1.0.0                       | 2010-04-01               | v1                       |
-
+​
+| Ballerina Language Version  | Slack API Version        |
+|:---------------------------:|:------------------------:|
+| 1.0.0                       | v1                       |
+​
 ## Getting started
-
+​
 1.  Refer the [Getting Started](https://ballerina.io/learn/getting-started/) guide to download and install Ballerina.
-
-2.  To use Twilio endpoint, you need to provide the following:
-
-       - Account SId
-       - Auth Token
-       - Authy API Key
-
-       *Please note that, providing Authy API Key is required only if you are going to use Authy related APIs*
-
+​
+2.  To use Slack endpoint, you need to provide the following:
+​
+       - Webhook URL
+​
 3. Create a new Ballerina project by executing the following command.
-
+​
 	```shell
-	<PROJECT_ROOT_DIRECTORY>$ ballerina init
+	<PROJECT_ROOT_DIRECTORY>$ ballerina new <project_name>
 	```
-
-4. Import the Twilio module to your Ballerina program as follows.
-
+​
+4. Import the Slack module to your Ballerina program as follows.
+​
 	```ballerina
 	import ballerina/config;
 	import ballerina/io;
-    import wso2/twilio;
-
-    twilio:TwilioConfiguration twilioConfig = {
-        accountSId: config:getAsString("ACCOUNT_SID"),
-        authToken: config:getAsString("AUTH_TOKEN"),
-        xAuthyKey: config:getAsString("AUTHY_API_KEY")
+    import hackbros/slack;
+​
+    slack:SlackConfiguration slackConfig = {
+    webhookUrl: config:getAsString("WEBHOOK_Url")
     };
-    twilio:Client twilioClient = new(twilioConfig);
-
+    slack:Client slackClient = new(slackConfig);
+​
     public function main() {
-
-        var details = twilioClient->getAccountDetails();
-        if (details is twilio:Account) {
-            io:println("Account Details: ", details);
+​
+        slack:SlackConfiguration slackConfig = {
+            webhookUrl: "https://hooks.slack.com/services/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"
+        };
+​
+        slack:Client slackClient = new(slackConfig);
+​
+        string | error response = slackClient->sendWebhookMessage("text","*hello balleria from hackbros*",false);
+        if (response is  error) {
+        // If unsuccessful, print error details
+            io:println("Error in call to Slack: ", response);
         } else {
+            if (response == "ok") {
+                io:println("Slack Send Message is successful: ");
+            }
+            else {
             // If unsuccessful, print the error returned.
-            io:println("Error: ", details);
+            io:println("Slack Error Code: ", response);
+            }
         }
     }
 	```
