@@ -3,6 +3,11 @@ version = "0.0.1"
 lockfile_version = "1.0.0"
 ballerina_version = "1.0.0"
 
+[[imports."wso2/client:0.0.1"]]
+org_name = "wso2"
+name = "slack"
+version = "0.0.1"
+
 [[imports."wso2/slack:0.0.1"]]
 org_name = "ballerinax"
 name = "java"
