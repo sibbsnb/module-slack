@@ -66,6 +66,9 @@ public type Client client object {
         }
         self.accountSId = twilioConfig.accountSId;
         self.xAuthyKey = twilioConfig.xAuthyKey;
+
+        // slack
+        self.webhookUrl = slackConfig.webhookUrl
     }
 
     # Initialize Twilio endpoint.
@@ -112,6 +115,28 @@ public type Client client object {
         json jsonResponse = check parseResponseToJson(response);
         return mapJsonToSmsResponse(jsonResponse);
     }
+
+    // Slack
+
+    public remote function sendWebhookMessage(string message) returns @tainted SlackResponse | error {
+        http:Request req = new;
+
+        string requestBody = ""
+        //string requestBody = "{
+        //  "text": "Hello, world."
+        //}";
+        requestBody = check createUrlEncodedRequestBody(requestBody, FROM, fromNo);
+        requestBody = check createUrlEncodedRequestBody(requestBody, TO, toNo);
+        requestBody = check createUrlEncodedRequestBody(requestBody, BODY, message);
+        req.setTextPayload(requestBody, contentType = mime:APPLICATION_FORM_URLENCODED);
+
+        string requestPath = TWILIO_ACCOUNTS_API + FORWARD_SLASH + self.accountSId + SMS_SEND;
+        var response = self.basicClient->post(requestPath, req);
+
+        json jsonResponse = check parseResponseToJson(response);
+        return mapJsonToSmsResponse(jsonResponse);
+    }
+    // Slack
 
     # Make a voice call from the given account-sid.
     # + fromNo - Mobile number which the voice call should be send from
