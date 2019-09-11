@@ -1,83 +1,42 @@
-Connects to Twilio from Ballerina. 
-
+Connects to Slack from Ballerina. 
 # Module Overview
-
-The Twilio connector allows you to send SMS, voice, and OTP messages through the Twilio REST API. You can also send
-user secrets via SMS or voice message, verify OTP, and add and delete users. It handles basic authentication.
-
+The Slack connector allows you to send slack message through the Slack REST API.
 **Basic Operations**
-
-The `wso2/twilio` module contains operations to get the Twilio account details, send SMS, and make voice calls.
-
-**Authy Operations**
-
-The `wso2/twilio` module contains operations to get Authy app details, add a user, delete a user, get user status, get 
-user secret, request OTP via SMS, request OTP via call, and verify OTP.
-
+The `hackbros/slack` module contains operations to send messages to Slack
 ## Compatibility
 |                          |    Version     |
 |:------------------------:|:--------------:|
 | Ballerina Language       | 1.0.0          |
-| Twilio Basic API         | 2010-04-01     |
-| Twilio Authy API Version | v1             |
-
+| Slack API Version        | v1             |
 ## Sample
-First, import the `wso2/twilio` module into the Ballerina project.
+First, import the `hackbros/slack` module into the Ballerina project.
 ```ballerina
-import wso2/twilio;
+import hackbros/slack;
 ```
-
-**Obtaining Tokens to Run the Sample**
-
-1. Visit [Twilio](https://www.twilio.com/) and create a Twilio Account.
-2. Obtain the following credentials from the Twilio dashboard:
-    * Account SId
-    * Auth Token
-    * X Authy API Secret
-
-You can now enter the credentials in the Twilio endpoint configuration.
+**Obtaining webhook URL to Run the Sample**
+1. Visit [SLACK](https://api.slack.com/incoming-webhooks/) and create a Slack Account.
+2. Obtain the webhook url
+You can now enter the webhook url in the slack endpoint configuration.
 ```ballerina
-twilio:TwilioConfiguration twilioConfig = {
-    accountSId: config:getAsString("ACCOUNT_SID"),
-    authToken: config:getAsString("AUTH_TOKEN"),
-    xAuthyKey: config:getAsString("AUTHY_API_KEY")
+slack:SlackConfiguration slackConfig = {
+    webhookUrl: config:getAsString("WEBHOOK_Url")
 };
-
-twilio:Client twilioClient = new(twilioConfig);
+sslack:Client slackClient = new(slackConfig);
 ```
-
-The `sendSMS` remote function sends an SMS to a given mobile number from another given mobile number with the specified message.
+The `sendWebhookMessage` remote function sends a slack message to a slack channel with the specified message.
 ```ballerina
-var details = twilioClient->sendSms(fromMobile, toMobile, message);
-if (details is  twilio:SmsResponse) {
-    // If successful, print SMS Details.
-    io:println("SMS Details: ", details);
-} else {
-    // If unsuccessful, print the error returned.
-    io:println("Error: ", details);
-}
-```
-
-The `addAuthyUser` remote function adds an Authy user with the given email address, phone number, and country code.
-```ballerina
-var details = twilioClient->addAuthyUser(email, phone, countryCode);
-if (details is  twilio:AuthyUserAddResponse) {
-    // If successful, print Authy user Details.
-    io:println("Authy user Details: ", details);
-} else {
-    // If unsuccessful, print the error returned.
-    io:println("Error: ", details);
-}
-```
-
-The `requestOtpViaSms` remote function sends an OTP SMS to the mobile number of the given user ID.
-```ballerina
-var details = twilioClient->requestOtpViaSms(userId);
-if (details is  twilio:AuthyOtpResponse) {
-    // If successful, print OTP SMS Details.
-    io:println("OTP SMS Details: ", details);
-} else {
-    // If unsuccessful, print the error returned.
-    io:println("Error: ", details);
+string | error response = slackClient->sendWebhookMessage("*hello*",false);
+if (response is  error) {
+        // If unsuccessful, print error details
+            io:println("Error in call to Slack: ", response);
+        } else {
+            if (response == "ok") {
+                io:println("Slack Send Message is successful: ");
+            }
+            else {
+            // If unsuccessful, print the error returned.
+            io:println("Slack Error Code: ", response);
+            }
+        }
 }
 ```
