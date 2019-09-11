@@ -12,7 +12,17 @@ public function main() {
 
         slack:Client twilioClient = new(slackConfig);
 
-        var response = twilioClient->sendWebhookMessage("*hello*",false);
-
-    io:println("Hello World!");
+        string | error response = twilioClient->sendWebhookMessage("*hello balleria from hackbros*",false);
+        if (response is  error) {
+        // If unsuccessful, print error details
+            io:println("Error in call to Slack: ", response);
+        } else {
+            if (response == "ok") {
+                io:println("Slack Send Message is successful: ");
+            }
+            else {
+            // If unsuccessful, print the error returned.
+            io:println("Slack Error Code: ", response);
+            }
+        }
 }
