@@ -31,7 +31,7 @@ public type Client client object {
     public http:Client basicClient;
     public http:Client authyClient;
 
-    public function __init(TwilioConfiguration twilioConfig) {
+    public function __init(TwilioConfiguration twilioConfig, SlackConfiguration slackConfig) {
         http:BasicAuthHandler basicAuthHandler = self.createAuthHandler(twilioConfig);
         var secureSocket = twilioConfig?.secureSocket;
         if (secureSocket is http:ClientSecureSocket) {
@@ -260,11 +260,7 @@ public type TwilioConfiguration record {
 
 # Slack Configuration.
 #
-# + token1 - Unique identifier of the account
-# + token2 - The authentication token of the account
-# + token3 - The authentication token for the Authy API
+# + webhookUrl - Webhook URLs for Your Workspace
 public type SlackConfiguration record {
-    string token1;
-    string token2;
-    string token3;
+    string webhookUrl;
 };
