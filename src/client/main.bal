@@ -12,7 +12,11 @@ public function main() {
             xAuthyKey: "871be22206402f2f170c1039d930cdc6"
         };
 
-        slack:Client twilioClient = new(twilioConfig);
+        slack:SlackConfiguration slackConfig = {
+            webhookUrl: "https://hooks.slack.com/services/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"
+        }
+
+        slack:Client twilioClient = new(twilioConfig,slackConfig);
 
         var details = twilioClient->sendSms("+19282912134", "+16233300813", "hello ballerina");
         if (details is  slack:SmsResponse) {
