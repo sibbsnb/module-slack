@@ -26,7 +26,7 @@ public function main() {
             }
         }
 
-        string | error response1 = twilioClient->sendWebhookMessage("list","*hello balleria from hackbros*",false);
+        string | error response1 = slackClient->sendWebhookMessage("list","*hello balleria from hackbros*",false);
         if (response1 is  error) {
         // If unsuccessful, print error details
             io:println("Error in call to Slack: ", response1);
