@@ -10,9 +10,9 @@ public function main() {
             webhookUrl: "https://hooks.slack.com/services/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"
         };
 
-        slack:Client twilioClient = new(slackConfig);
+        slack:Client slackClient = new(slackConfig);
 
-        string | error response = twilioClient->sendWebhookMessage("text","*hello balleria from hackbros*",false);
+        string | error response = slackClient->sendWebhookMessage("text","*hello balleria from hackbros*",false);
         if (response is  error) {
         // If unsuccessful, print error details
             io:println("Error in call to Slack: ", response);
