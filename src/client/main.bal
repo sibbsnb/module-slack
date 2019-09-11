@@ -13,8 +13,8 @@ public function main() {
         };
 
         slack:SlackConfiguration slackConfig = {
-            //webhookUrl: "https://hooks.slack.com/services/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"
-            webhookUrl: "https://hooks.slack.com/services"
+            webhookUrl: "https://hooks.slack.com/services/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"
+            //webhookUrl: "https://hooks.slack.com/services"
 
         };
 

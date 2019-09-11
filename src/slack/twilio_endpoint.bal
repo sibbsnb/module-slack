@@ -125,12 +125,12 @@ public type Client client object {
         http:Request req = new;
 
         string requestBody = "";
-        json jsPayload = {text : "HEllo"};
+        json jsPayload = {text : "HEllo hack bros"};
 
         req.setJsonPayload(jsPayload);
 
-        //var response = self.slackClient->post("/TMW8PGVT4/BNAU2CW8P/KrPfHLc2iJQh6N46cxLnCgBS",jsPayload);
-        var response = self.slackClient->post("/TMW8PGVT4/BNAU2CW8P/KrPfHLc2iJQh6N46cxLnCgBS",req);
+        var response = self.slackClient->post("",req);
+        //var response = self.slackClient->post("/TMW8PGVT4/BNAU2CW8P/KrPfHLc2iJQh6N46cxLnCgBS",req);
 
         if (response is http:Response) {
             string contentType = response.getHeader("Content-Type");
