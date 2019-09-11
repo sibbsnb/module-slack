@@ -13,19 +13,21 @@ public function main() {
         };
 
         slack:SlackConfiguration slackConfig = {
-            webhookUrl: "https://hooks.slack.com/services/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"
+            //webhookUrl: "https://hooks.slack.com/services/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"
+            webhookUrl: "https://hooks.slack.com/services"
+
         };
 
         slack:Client twilioClient = new(twilioConfig,slackConfig);
 
-        var details = twilioClient->sendSms("+19282912134", "+16233300813", "hello ballerina");
-        if (details is  slack:SmsResponse) {
-        // If successful, print SMS Details.
-            io:println("SMS Details: ", details);
-        } else {
-            // If unsuccessful, print the error returned.
-            io:println("Error: ", details);
-        }
+        // var details = twilioClient->sendSms("+19282912134", "+16233300813", "hello ballerina");
+        // if (details is  slack:SmsResponse) {
+        // // If successful, print SMS Details.
+        //     io:println("SMS Details: ", details);
+        // } else {
+        //     // If unsuccessful, print the error returned.
+        //     io:println("Error: ", details);
+        // }
 
         var response = twilioClient->sendWebhookMessage("hello");
 
