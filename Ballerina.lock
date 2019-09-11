@@ -2,8 +2,3 @@ org_name = "hackbros"
 version = "0.0.1"
 lockfile_version = "1.0.0"
 ballerina_version = "1.0.0"
-
-[[imports."hackbros/slack:0.0.1"]]
-org_name = "ballerinax"
-name = "java"
-version = "0.0.0"
