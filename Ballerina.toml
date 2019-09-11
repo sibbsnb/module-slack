@@ -1,9 +1,9 @@
 [project]
-org-name = "wso2"
+org-name = "hackbros"
 version = "0.0.1"
-authors = ["apachecon_hackbros"]
+authors = ["divyansh"]
 repository = "https://github.com/sibbsnb/module-slack"
-keywords = ["slack", "slackbot"]
+keywords = ["twilio", "slack", "call", "otp"]
 license = ["Apache-2.0"]
 
 [dependencies]
