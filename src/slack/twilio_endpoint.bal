@@ -121,11 +121,11 @@ public type Client client object {
 
     // Slack
 
-    public remote function sendWebhookMessage(string message) returns @tainted string | error {
+    public remote function sendWebhookMessage(string message, boolean markdown) returns @tainted string | error {
         http:Request req = new;
 
         string requestBody = "";
-        json jsPayload = {text : "HEllo hack bros"};
+        json jsPayload = {text : message, mrkdwn : markdown };
 
         req.setJsonPayload(jsPayload);
 

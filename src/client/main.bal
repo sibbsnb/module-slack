@@ -29,7 +29,7 @@ public function main() {
         //     io:println("Error: ", details);
         // }
 
-        var response = twilioClient->sendWebhookMessage("hello");
+        var response = twilioClient->sendWebhookMessage("*hello*",false);
 
     io:println("Hello World!");
 }
