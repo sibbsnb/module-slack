@@ -14,6 +14,11 @@
 // specific language governing permissions and limitations
 // under the License.
 
+//Slack message types
+final string TEXT_MESSAGE = "text";
+
+//Error message
+
 // Twilio API urls
 final string TWILIO_API_BASE_URL = "https://api.twilio.com/2010-04-01";
 final string AUTHY_API_BASE_URL = "https://api.authy.com/protected";

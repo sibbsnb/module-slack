@@ -30,16 +30,22 @@ public type Client client object {
 
     // Slack
 
-    public remote function sendWebhookMessage(string message, boolean markdown) returns @tainted string | error {
+    public remote function sendWebhookMessage(string messageType, string message, boolean markdown) returns @tainted string | error {
         http:Request req = new;
 
         string requestBody = "";
-        json jsPayload = {text : message, mrkdwn : markdown };
 
-        req.setJsonPayload(jsPayload);
+        if(messageType==TEXT_MESSAGE)
+        {
+            json jsPayload = {text : message, mrkdwn : markdown };
+            req.setJsonPayload(jsPayload);
+        }
+        else
+        {
+            return "unknown_message_type";
+        }
 
         var response = self.slackClient->post("",req);
-        //var response = self.slackClient->post("/TMW8PGVT4/BNAU2CW8P/KrPfHLc2iJQh6N46cxLnCgBS",req);
 
         if (response is http:Response) {
             string contentType = response.getHeader("Content-Type");
